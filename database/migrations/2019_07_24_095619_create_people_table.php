@@ -15,6 +15,10 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tel')->default('')->comment('手机');
+            $table->string('name')->default('')->comment('姓名');
+            $table->integer('member_id')->default(0)->comment('member_id');
+            $table->tinyInteger('status')->default(0)->comment('0失败 1成功');
             $table->timestamps();
         });
     }

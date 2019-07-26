@@ -15,6 +15,14 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name')->default('')->comment('昵称');
+            $table->string('username')->unique()->comment('用户名');
+            $table->string('email')->default('')->unique();
+            $table->string('password')->default(0);
+            $table->string('member_id')->default(0);
+            $table->string('tel')->default('')->comment('手机');
+            $table->tinyInteger('is_super')->default(0)->comment('是否为超级管理员');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

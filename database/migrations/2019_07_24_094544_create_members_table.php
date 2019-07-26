@@ -15,6 +15,9 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('member_user')->default('')->comment('分配的用户号');
+            $table->string('member_key')->default('')->comment('用户key 用于验签');
+            $table->string('public_key')->default('')->comment('即用户公钥地址 用于加密');
             $table->timestamps();
         });
     }

@@ -8,3 +8,5 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin');
 });
+
+Route::get('/test','Api\PersonController@test');
