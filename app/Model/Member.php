@@ -132,4 +132,21 @@ class Member extends Model
         $ret = $hex !== false && preg_match('/^[0-9a-fA-F]+$/i', $hex) ? pack("H*", $hex) : false;
         return $ret;
     }
+
+    public function sign($data)
+    {
+        $data = array_filter($data);
+        ksort($data);
+
+        if(isset($data['sign'])) unset($data['sign']);
+
+        $string = '';
+        foreach($data as $k => $v) {
+            $string .= "{$k}={$v}&";
+        }
+
+        $stringTemp = $string . "key=" . $this->member_key;
+
+        return strtoupper(md5($stringTemp));
+    }
 }
