@@ -48,7 +48,6 @@ class Member extends Model
     public function decrypt($data, $code = 'hex', $padding = OPENSSL_PKCS1_PADDING, $rev = false)
     {
         $this->priKey = Storage::get('tk_rsa_private_key.pem');
-        echo $this->priKey;
 
         $data = $this->_decode($data, $code);
         if (!$this->_checkPadding($padding, 'de')) {

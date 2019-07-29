@@ -47,7 +47,8 @@ class PersonController extends Controller
         $person->trade_no = 'tk'.time().substr($data['order_no'],-4);
         $person->save();
         $person->refresh();
-dd($person);
+        activity()->causedBy($member)->log('请求成功入库');
+
         $http = new Client();
 
         $xx_token = md5(date('Y-m-d') . '110110');
@@ -65,6 +66,7 @@ dd($person);
             $person->save();
         }
 
+        activity()->causedBy($member)->log('协享成功返回');
 
         $arr = [
             'phone' => $person->tel,
@@ -89,8 +91,8 @@ dd($person);
 
     public function test()
     {
-        $data['phone'] = '17715273200';
-        $data['name'] = 'test';
+        $data['phone'] = '18761605229';
+        $data['name'] = '';
         $data['order_no'] = 'test453522';
 
         $member = Member::findOrFail(1);
@@ -99,7 +101,7 @@ dd($person);
         print_r($data);
 
         $res = [
-            'member_user' => $member->user,
+            'member_user' => $member->member_user,
             'enc_msg' => $member->encrypt($data),
         ];
 

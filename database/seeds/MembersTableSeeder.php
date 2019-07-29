@@ -13,7 +13,9 @@ class MembersTableSeeder extends Seeder
     {
         DB::table('members')->insert([
             'member_user' => 'test',
-            'public_key' => Storage::url('rsa_public_key.pem'),
+            'member_key' => Str::random(20),
+            'public_key' => 'rsa_public_key.pem',
+            'created_at' => date('Y-m-d H:i:s')
         ]);
     }
 }
