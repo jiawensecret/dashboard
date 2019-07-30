@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\OauthClient;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\LoginRequest;
@@ -65,13 +66,15 @@ class AdminController extends Controller
 
     public function login(LoginRequest $loginRequest)
     {
+        $oauth = OauthClient::find(1);
+
         $http = new Client();
 
         $response = $http->post(url('/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => '3',
-                'client_secret' => 'n8bnLm2sDZewMQABtEIsBSy0RlAKUOG5dze07dkV',
+                'client_id' => $oauth->id,
+                'client_secret' => $oauth->secret,
                 'username' => $loginRequest->post('username',''),
                 'password' => $loginRequest->post('password',''),
                 'scope' => '*',
