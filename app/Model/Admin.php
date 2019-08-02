@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens,HasRoles;
 
     protected $fillable = [
         'name','username','email','password','tel','is_super','member_id','created_at','updated_at'
@@ -26,5 +27,7 @@ class Admin extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+
 
 }

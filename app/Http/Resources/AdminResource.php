@@ -21,6 +21,7 @@ class AdminResource extends JsonResource
             'email' => $this->email,
             'tel' => $this->tel,
             'is_super' => boolval($this->is_super),
+            'roles' => $this->is_super ? ['super_admin'] : [],
             'created_at' => date('Y:m:d H:i:s',strtotime($this->created_at)),
             'updated_at' => date('Y:m:d H:i:s',strtotime($this->updated_at)),
         ];

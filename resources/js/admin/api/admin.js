@@ -12,7 +12,9 @@ export function getInfo(token) {
   return request({
     url: 'api/admin/info',
     method: 'get',
-    params: { token }
+    headers: {
+        'Authorization' : 'Bearer ' + token
+    }
   })
 }
 

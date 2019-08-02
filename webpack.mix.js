@@ -21,8 +21,8 @@ mix.js('resources/js/admin/main.js', 'public/js')
         module: {
             rules: [
                 {
-                    test: /\.svg$/,
-                    loader: 'svg-sprite-loader',
+                    test: /\.(eot|svg|ttf|woff|woff2?)$/,
+                    loader: 'file-loader',
                     include: [path.resolve(__dirname, 'resources/js/admin/icons/svg')],
                     options: {
                         symbolId: 'icon-[name]'

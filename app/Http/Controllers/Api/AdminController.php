@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Model\OauthClient;
+use Auth;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\LoginRequest;
@@ -82,5 +83,17 @@ class AdminController extends Controller
         ]);
 
         return response()->json(json_decode($response->getBody(),true));
+    }
+
+    public function logout()
+    {
+
+    }
+
+    public function info()
+    {
+        $admin = Auth::guard('api')->user();
+
+        return $this->_response(new AdminResource($admin));
     }
 }

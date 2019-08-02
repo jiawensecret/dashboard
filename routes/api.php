@@ -20,6 +20,8 @@ Route::post('/admin/login','Api\AdminController@login');
 
 Route::group(['middleware' => 'auth:api'], function(){
 
+    Route::get('/admin/info','Api\AdminController@info');
+
     Route::resources([
         'admin' => 'Api\AdminController',
     ]);
