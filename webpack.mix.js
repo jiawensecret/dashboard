@@ -10,20 +10,25 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+Mix.listen('configReady', (webpackConfig) => {
+    // Exclude 'svg' folder from font loader
+    let fontLoaderConfig = webpackConfig.module.rules.find(rule => String(rule.test) === String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/));
+    fontLoaderConfig.exclude = [path.resolve(__dirname, 'resources/admin/icons/svg')];
+});
 
-mix.js('resources/js/admin/main.js', 'public/js')
+mix.js('resources/admin/main.js', 'public/js')
     .webpackConfig({
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, 'resources/js/admin'),
+                '@': path.resolve(__dirname, 'resources/admin'),
             },
         },
         module: {
             rules: [
                 {
-                    test: /\.(eot|svg|ttf|woff|woff2?)$/,
-                    loader: 'file-loader',
-                    include: [path.resolve(__dirname, 'resources/js/admin/icons/svg')],
+                    test: /\.svg$/,
+                    loader: 'svg-sprite-loader',
+                    include: [path.resolve(__dirname, 'resources/admin/icons/svg')],
                     options: {
                         symbolId: 'icon-[name]'
                     }
