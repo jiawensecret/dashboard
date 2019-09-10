@@ -14,7 +14,7 @@ class AddAliasNameColumnToPermission extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-
+            $table->string('alias_name')->default('')->comment('名称');
         });
     }
 
@@ -25,8 +25,8 @@ class AddAliasNameColumnToPermission extends Migration
      */
     public function down()
     {
-        Schema::table('permission', function (Blueprint $table) {
-            //
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->dropColumn('alias_name');
         });
     }
 }

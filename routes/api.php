@@ -24,5 +24,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::resources([
         'admin' => 'Api\AdminController',
+        'permission' => 'Api\PermissionController',
+        'role' => 'Api\RoleController',
     ]);
 });

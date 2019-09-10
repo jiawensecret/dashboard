@@ -4,8 +4,9 @@ namespace App\Http\Requests\Permission;
 
 use App\Http\Requests\NewFormRequest;
 
-class StoreRequest extends NewFormRequest
+class UpdateRequest extends NewFormRequest
 {
+
 
     /**
      * Get the validation rules that apply to the request.

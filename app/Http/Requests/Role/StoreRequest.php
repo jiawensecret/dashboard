@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Permission;
+namespace App\Http\Requests\Role;
 
 use App\Http\Requests\NewFormRequest;
 
@@ -16,7 +16,6 @@ class StoreRequest extends NewFormRequest
     {
         return [
             'name' => 'required|string',
-            'alias_name' => 'required|string'
         ];
     }
 }
