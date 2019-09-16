@@ -13,7 +13,7 @@ class PermissionController extends Controller
 {
     public function index(Request $request)
     {
-        return $this->_response(PermissionResource::collection(Permission::all()));
+        return PermissionResource::collection(Permission::paginate());
     }
 
     public function create()
