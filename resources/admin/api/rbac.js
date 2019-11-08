@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 export function permissionList(data) {
-  return request({
-    url: 'api/permission',
-    method: 'get',
-    data
-  })
+    return request({
+        url: 'api/permission',
+        method: 'get',
+        params: data
+    })
 }
 
 export function getPermission(id) {
@@ -23,7 +23,7 @@ export function permissionCreate(data) {
     })
 }
 
-export function permissionUpdate(id,data) {
+export function permissionUpdate(id, data) {
     return request({
         url: `api/permission/${id}`,
         method: 'put',
@@ -61,7 +61,7 @@ export function roleCreate(data) {
     })
 }
 
-export function roleUpdate(id,data) {
+export function roleUpdate(id, data) {
     return request({
         url: `api/role/${id}`,
         method: 'put',

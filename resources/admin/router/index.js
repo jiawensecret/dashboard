@@ -171,6 +171,48 @@ export const asyncRoutes = [
     ]
   },
 
+    {
+        path: '/rbac',
+        component: Layout,
+        redirect: '/rbac/page',
+        alwaysShow: true, // will always show the root menu
+        name: '权限控制',
+        meta: {
+            title: '权限控制',
+            icon: 'lock',
+            roles: ['super_admin','admin', 'editor'] // you can set roles in root nav
+        },
+        children: [
+            {
+                path: 'permission',
+                component: () => import('@/pages/rbac/permission'),
+                name: 'PagePermission',
+                meta: {
+                    title: 'Page Permission',
+                    roles: ['super_admin','admin'] // or you can only set roles in sub nav
+                }
+            },
+            {
+                path: 'directive',
+                component: () => import('@/views/permission/directive'),
+                name: 'DirectivePermission',
+                meta: {
+                    title: 'Directive Permission'
+                    // if do not set roles, means: this page does not require permission
+                }
+            },
+            {
+                path: 'role',
+                component: () => import('@/views/permission/role'),
+                name: 'RolePermission',
+                meta: {
+                    title: 'Role Permission',
+                    roles: ['super_admin','admin']
+                }
+            }
+        ]
+    },
+
   {
     path: '/icon',
     component: Layout,

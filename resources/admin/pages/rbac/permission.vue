@@ -72,8 +72,8 @@
                 <el-form-item label="名称" prop="alias_name">
                     <el-input v-model="temp.alias_name"/>
                 </el-form-item>
-                <el-form-item label="分类" prop="type">
-                    <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date"/>
+                <el-form-item label="分类" prop="guard_name">
+                    <el-input v-model="temp.guard_name"/>
                 </el-form-item>
                 <el-form-item label="路由" prop="route">
                     <el-input v-model="temp.name"/>
@@ -124,17 +124,16 @@
                 listLoading: true,
                 listQuery: {
                     page: 1,
-                    limit: 20,
+                    limit: 15,
                     sort: '+id'
                 },
                 showReviewer: false,
                 temp: {
                     id: undefined,
-                    importance: 1,
-                    remark: '',
-                    timestamp: new Date(),
-                    title: '',
-                    type: ''
+                    alias_name: '',
+                    guard_name: '',
+                    name: '',
+                    uri: '',
                 },
                 dialogFormVisible: false,
                 dialogStatus: '',
@@ -144,9 +143,10 @@
                 },
                 dialogPvVisible: false,
                 rules: {
-                    type: [{ required: true, message: 'type is required', trigger: 'change' }],
-                    timestamp: [{ type: 'date', required: true, message: 'timestamp is required', trigger: 'change' }],
-                    title: [{ required: true, message: 'title is required', trigger: 'blur' }]
+                    alias_name: [{ required: true, message: '名称不能为空', trigger: 'change' }],
+                    guard_name: [{ required: true, message: '分类不能为空', trigger: 'change' }],
+                    name: [{ required: true, message: '路由不能为空', trigger: 'blur' }],
+                    uri: [{ required: true, message: '路径不能为空', trigger: 'blur' }]
                 },
                 downloadLoading: false
             }
@@ -158,8 +158,8 @@
             getList() {
                 this.listLoading = true
                 permissionList(this.listQuery).then(response => {
-                    this.list = response.data.items
-                    this.total = response.data.total
+                    this.list = response.data
+                    this.total = response.meta.total
 
                     // Just to simulate the time of the request
                     setTimeout(() => {
@@ -195,12 +195,10 @@
             resetTemp() {
                 this.temp = {
                     id: undefined,
-                    importance: 1,
-                    remark: '',
-                    timestamp: new Date(),
-                    title: '',
-                    status: 'published',
-                    type: ''
+                    alias_name: '',
+                    guard_name: '',
+                    name: '',
+                    uri: '',
                 }
             },
             handleCreate() {
@@ -214,11 +212,8 @@
             createData() {
                 this.$refs['dataForm'].validate((valid) => {
                     if (valid) {
-                        this.temp.id = parseInt(Math.random() * 100) + 1024 // mock a id
-                        this.temp.author = 'vue-element-admin'
-                        createArticle(this.temp).then(() => {
+                        permissionCreate(this.temp).then(() => {
                             this.list.unshift(this.temp)
-                            this.dialogFormVisible = false
                             this.$notify({
                                 title: 'Success',
                                 message: 'Created Successfully',
@@ -231,7 +226,6 @@
             },
             handleUpdate(row) {
                 this.temp = Object.assign({}, row) // copy obj
-                this.temp.timestamp = new Date(this.temp.timestamp)
                 this.dialogStatus = 'update'
                 this.dialogFormVisible = true
                 this.$nextTick(() => {
@@ -242,8 +236,7 @@
                 this.$refs['dataForm'].validate((valid) => {
                     if (valid) {
                         const tempData = Object.assign({}, this.temp)
-                        tempData.timestamp = +new Date(tempData.timestamp) // change Thu Nov 30 2017 16:41:05 GMT+0800 (CST) to 1512031311464
-                        updateArticle(tempData).then(() => {
+                        permissionUpdate(this.temp.id,tempData).then(() => {
                             for (const v of this.list) {
                                 if (v.id === this.temp.id) {
                                     const index = this.list.indexOf(v)
