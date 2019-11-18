@@ -13,7 +13,8 @@ class PermissionController extends Controller
 {
     public function index(Request $request)
     {
-        return PermissionResource::collection(Permission::paginate());
+        $limit = $request->get('limit',10);
+        return PermissionResource::collection(Permission::paginate($limit));
     }
 
     public function create()

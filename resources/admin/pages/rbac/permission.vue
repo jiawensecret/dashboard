@@ -1,6 +1,9 @@
 <template>
     <div class="app-container">
         <div class="filter-container">
+            <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit" @click="handleCreate">
+                新增权限
+            </el-button>
         </div>
 
         <el-table
@@ -124,7 +127,7 @@
                 listLoading: true,
                 listQuery: {
                     page: 1,
-                    limit: 15,
+                    limit: 10,
                     sort: '+id'
                 },
                 showReviewer: false,
