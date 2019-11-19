@@ -56,11 +56,11 @@
             <el-table-column label="Actions" align="center" width="230" class-name="small-padding fixed-width">
                 <template slot-scope="{row}">
                     <el-button type="primary" size="mini" @click="handleUpdate(row)">
-                        Edit
+                        编辑
                     </el-button>
                     <el-button size="mini" type="danger"
                                @click="handleModifyStatus(row,'deleted')">
-                        Delete
+                        删除
                     </el-button>
                 </template>
             </el-table-column>
@@ -87,10 +87,10 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">
-                    Cancel
+                    取消
                 </el-button>
                 <el-button type="primary" @click="dialogStatus==='create'?createData():updateData()">
-                    Confirm
+                    确定
                 </el-button>
             </div>
         </el-dialog>
